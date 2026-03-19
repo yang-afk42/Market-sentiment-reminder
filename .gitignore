@@ -1,3 +1,17 @@
+# 資料庫與日誌 (不要上傳實體數據)
+*.db
+*.log
+
+# Python 暫存與環境
+__pycache__/
+venv/
+.env
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+
+#原始
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
