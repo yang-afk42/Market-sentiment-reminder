@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 4. 複製專案所有內容到容器
-COPY reminder.py、database_manager.py
+COPY reminder.py database_manager.py ./
 
 # 5. 設定啟動指令
 CMD ["python", "reminder.py"]
