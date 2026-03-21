@@ -18,25 +18,29 @@ def calculate_rsi(series, period=14):
     return 100 - (100 / (1 + rs))
 
 def get_market_data():
-    print(f"🚀 正在抓取市場數據...")
+    print(f"🚀 正在嘗試用 curl_cffi 抓取數據...")
     tickers = ['^VIX', '^VIX3M', '^TNX', '^FVX', 'NQ=F', '^TWII']
     
     try:
-        data = yf.download(tickers, period=LOOKBACK_DAYS, progress=False, auto_adjust=True)
+        # 直接下載，yfinance 會自動偵測環境中的 curl_cffi 並進行偽裝
+        data = yf.download(
+            tickers, 
+            period=LOOKBACK_DAYS, 
+            progress=False, 
+            auto_adjust=True
+        )
+        
         if data.empty:
             print("❌ 錯誤：下載數據為空。")
             return None
             
+        # 處理資料格式 (保持原本的 Close 處理邏輯)
         if isinstance(data.columns, pd.MultiIndex):
             try:
                 data = data['Close']
             except KeyError:
                 data = data.xs('Close', level=0, axis=1)
 
-        if '^TWII' not in data.columns:
-            print("❌ 錯誤：關鍵數據 (^TWII) 下載失敗。")
-            return None
-            
         data = data.ffill()
         return data
     except Exception as e:
