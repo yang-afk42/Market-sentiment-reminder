@@ -1,4 +1,6 @@
 # Market-sentiment-reminder
+[![Market-Monitor-Automation](https://github.com/yang-afk42/Market-sentiment-reminder/actions/workflows/main.yml/badge.svg)](https://github.com/yang-afk42/Market-sentiment-reminder/actions/workflows/main.yml)
+
 1.Description
 This project aims to automate the tracking of market sentiment indicators—such as yield spreads and margin maintenance ratios—to provide actionable investment decision support. It addresses the critical investor pain point of synthesizing disparate macroeconomic and technical indicators in real-time.
 
