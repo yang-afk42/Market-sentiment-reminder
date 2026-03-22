@@ -17,11 +17,18 @@ def calculate_rsi(series, period=14):
     rs = gain / loss
     return 100 - (100 / (1 + rs))
 
+import requests  # 防止被認成機器人
 def get_market_data():
     print(f"🚀 正在嘗試用 curl_cffi 抓取數據...")
     tickers = ['^VIX', '^VIX3M', '^TNX', '^FVX', 'NQ=F', '^TWII']
     
+    session = requests.Session()
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    })
+    
     try:
+
         # 直接下載，yfinance 會自動偵測環境中的 curl_cffi 並進行偽裝
         data = yf.download(
             tickers, 
@@ -30,6 +37,9 @@ def get_market_data():
             auto_adjust=True
         )
         
+
+        data = yf.download(tickers, period=LOOKBACK_DAYS, progress=False, auto_adjust=True, session=session) #session防止被認成機器人
+
         if data.empty:
             print("❌ 錯誤：下載數據為空。")
             return None
